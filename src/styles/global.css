@@ -119,3 +119,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+html {
+  display: flex;
+  min-width: 100vw;
+}
