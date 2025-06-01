@@ -1,7 +1,12 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/images/termite_logo.png"
+---
+
 <footer class="flex px-24 py-18 border-t-1 border-slate-600 gap-40 justify-between">
     <div>
         <a href="/" class="flex items-baseline min-w-fit mb-2">
-            <img src="/images/termite_logo.png" class="object-cover pr-2" alt="" width={40} height={40}>
+            <Image src={logo} class="object-cover pr-2" alt="" width={40} height={40}>
             <p class="font-bold text-5xl font-[cursive] leading-tight">Termite</p>
         </a>
         <ul class="flex gap-6.5">

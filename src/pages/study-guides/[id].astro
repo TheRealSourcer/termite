@@ -25,7 +25,7 @@ console.log(studyGuide);
     <main>
         <h1>{studyGuide.data.title}</h1>
         {studyGuide.data.cards.map((card) => (
-          <FlipCard front={card[0]} back={card[1]} client:load></FlipCard>
+          <FlipCard front={card[0]} back={card[1]} client:visible></FlipCard>
         ))}
     </main>
 </Layout>
