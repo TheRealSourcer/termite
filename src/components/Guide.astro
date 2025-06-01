@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Card, CardHeader, CardContent, CardTitle } from "./ui/card";
+
+type Props = {
+    guide: CollectionEntry<"studyGuidesCollection">
+};
+
+const { guide } = Astro.props;
+---
+
+<div>
+    <a href=`/study-guides/${guide.id}`>
+        <Card>
+            <CardHeader className="flex flex-row justify-between">
+                <CardTitle className="uppercase text-xl">{guide.data.title}</CardTitle>
+            </CardHeader>
+            <CardContent>{guide.data.author}</CardContent>
+            <CardContent>{guide.data.categories}</CardContent>
+            <CardContent>{guide.data.date}</CardContent>
+        </Card>
+    </a>
+</div>

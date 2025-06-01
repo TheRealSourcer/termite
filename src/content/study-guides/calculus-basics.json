@@ -1,0 +1,12 @@
+{
+    "author": "Mary Jackson",
+    "date": "2024-08-30",
+    "image": "/images/math.jpg",
+    "categories": ["math", "calculus"],
+    "title": "Calculus Basics",
+    "cards": [
+      ["What is the derivative of x²?", "2x"],
+      ["What does ∫ mean?", "It represents an integral"]
+    ]
+}
+  

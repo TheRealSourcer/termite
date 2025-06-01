@@ -1,0 +1,40 @@
+---
+
+import Layout from "../../layouts/Layout.astro";
+import FlipCard from "../../components/FlipCard.tsx"
+import { getCollection, type CollectionEntry } from "astro:content";
+export async function getStaticPaths() {
+  console.log("getStaticPaths is running");
+  const studyGuides = await getCollection("studyGuidesCollection");
+  return studyGuides.map((guide) => ({
+    params: { id: guide.id },
+    props: { studyGuide: guide },
+  }));
+}
+
+
+type Props = {
+    studyGuide: CollectionEntry<"studyGuidesCollection">
+}
+
+const {studyGuide} = Astro.props;
+console.log(studyGuide);
+---
+
+<Layout title="Termite">
+    <main>
+        <h1>{studyGuide.data.title}</h1>
+        {studyGuide.data.cards.map((card) => (
+          <FlipCard front={card[0]} back={card[1]} client:load></FlipCard>
+        ))}
+    </main>
+</Layout>
+
+<script>
+const flipped = false;
+const flipCard = document.getElementById("flipCard");
+
+flipCard?.addEventListener("click", () => {
+  flipped != flipped
+})
+</script>

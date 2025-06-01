@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Guide from "./Guide.astro"; 
+type Props = {
+    guides: CollectionEntry<"studyGuidesCollection">[]
+};
+
+const { guides } = Astro.props;
+---
+
+<div class="grid grid-cols-2 gap-6">
+    { guides.map(guide => <Guide guide={guide} />) }
+</div>

@@ -1,0 +1,12 @@
+{
+    "author": "Carl Sagan",
+    "date": "2024-09-15",
+    "image": "/images/astronomy.jpg",
+    "categories": ["science", "astronomy"],
+    "title": "Exploring the Cosmos",
+    "cards": [
+      ["What is a galaxy?", "A system of millions or billions of stars"],
+      ["What is the closest star to Earth?", "The Sun"]
+    ]
+}
+  

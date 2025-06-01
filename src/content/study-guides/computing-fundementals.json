@@ -1,0 +1,12 @@
+{
+    "author": "Grace Hopper",
+    "date": "2024-04-05",
+    "image": "/images/computerscience.jpg",
+    "categories": ["computer science", "basics"],
+    "title": "Computing Fundamentals",
+    "cards": [
+      ["What is a binary number?", "A number expressed in base-2"],
+      ["What does CPU stand for?", "Central Processing Unit"]
+    ]
+}
+  

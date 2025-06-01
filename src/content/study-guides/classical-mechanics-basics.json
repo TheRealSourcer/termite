@@ -1,0 +1,12 @@
+{
+    "author": "Isaac Newton",
+    "date": "2024-05-20",
+    "image": "/images/physics.jpg",
+    "categories": ["science", "physics"],
+    "title": "Classical Mechanics Basics",
+    "cards": [
+      ["What is Newton's First Law?", "An object in motion stays in motion unless acted upon"],
+      ["What is the unit of force?", "Newton"]
+    ]
+}
+  

@@ -1,0 +1,11 @@
+{
+  "author": "John Doe",
+  "date": "2024-01-01",
+  "image": "/images/sample.jpg",
+  "categories": ["math", "algebra"],
+  "title": "Basic Algebra Study Guide",
+  "cards": [
+    ["What is 2 + 2?", "4"],
+    ["What is the square root of 4", "2"]
+  ]
+}

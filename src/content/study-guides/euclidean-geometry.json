@@ -1,0 +1,12 @@
+{
+    "author": "Euclid",
+    "date": "2024-11-01",
+    "image": "/images/euclidean.jpg",
+    "categories": ["math", "geometry"],
+    "title": "Euclidean Geometry",
+    "cards": [
+      ["Who is the father of geometry?", "Euclid"],
+      ["What is a point?", "A location in space with no size"]
+    ]
+}
+  

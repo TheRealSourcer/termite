@@ -1,0 +1,12 @@
+{
+    "author": "Jane Smith",
+    "date": "2024-02-15",
+    "image": "/images/geometry.jpg",
+    "categories": ["math", "geometry"],
+    "title": "Intro to Geometry",
+    "cards": [
+      ["What is the sum of angles in a triangle?", "180 degrees"],
+      ["What is a right angle?", "An angle of 90 degrees"]
+    ]
+}
+  

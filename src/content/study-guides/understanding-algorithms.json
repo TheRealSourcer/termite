@@ -1,0 +1,12 @@
+{
+    "author": "Dorothy Vaughan",
+    "date": "2024-10-10",
+    "image": "/images/algorithms.jpg",
+    "categories": ["computer science", "algorithms"],
+    "title": "Understanding Algorithms",
+    "cards": [
+      ["What is an algorithm?", "A step-by-step procedure for solving a problem"],
+      ["What is Big O notation?", "A way to describe algorithm efficiency"]
+    ]
+}
+  

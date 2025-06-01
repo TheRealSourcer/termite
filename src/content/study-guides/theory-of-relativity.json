@@ -1,0 +1,12 @@
+{
+    "author": "Albert Einstein",
+    "date": "2024-07-22",
+    "image": "/images/relativity.jpg",
+    "categories": ["science", "physics"],
+    "title": "Theory of Relativity",
+    "cards": [
+      ["What does E=mc² mean?", "Energy equals mass times the speed of light squared"],
+      ["Who developed the theory of relativity?", "Albert Einstein"]
+    ]
+}
+  

@@ -1,16 +1,72 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Termite">
+	<Main>
+		<section class="flex justify-center flex-col bg-[url('images/texture_paper.jpg')] bg-repeat bg-cover w-full pt-24 pb-12 px-96 max-sm:px-5 max-2xl:px-24">
+			<h1 class="text-7xl text-black font-bold mb-4 font-[cursive] inline-block text-center">
+				Termite
+			</h1>
+			<span class="text-black class mx-auto mb-8 text-2xl">
+				The 
+				<span class="relative inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:bg-rose-400 z-1"> 
+					<span class="relative text-white dark:text-gray-950">
+						modern
+					</span>
+				</span> 
+				solution for study guides. (and no sign in required)
+			</span>
+			<div class="flex justify-center gap-4 mb-12">
+				<a href="/explore" class="bg-white px-8 py-4 text-black rounded-lg font-bold hover:scale-105 hover:shadow-lg active:scale-90 active:shadow-none shadow-slate-600 duration-300">Explore</a>
+				<a href="/about" class="bg-transparent px-8 py-4 text-black rounded-lg font-bold border-2 border-black">Learn More</a>
+			</div>
+			<img src="/images/termite_showcase.png" class="animate-in fade-in slide-in-from-bottom-50 duration-1000 delay-100" alt="">	
+		</section>
+		<section class="flex justify-center flex-col bg-rose-900 bg-repeat bg-cover w-full px-24 py-12 max-sm:px-5">
+			<h1 class="text-6xl text-white font-bold mb-8 mt-12 font-[cursive] inline-block text-center uppercase">Say no to freemium</h1>
+			<a href="/explore" class="bg-white px-8 py-4 text-black rounded-lg font-bold mx-auto">Explore</a>
+		</section>
+		<section class="flex justify-center flex-col bg-repeat bg-cover w-full py-12 px-96 max-sm:px-5 max-2xl:px-24">
+			<h1 class="text-6xl text-black font-bold mb-8 mt-12 font-[cursive] uppercase">
+				Take <span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-600 to-slate-500">Control</span>
+			</h1>
+			<p class="text-black">
+				Because you deserve more than half free software with ads, pop ups and productivity blockers, freedom no freemium, speak the message, open source, use for whatever you want, whenever you want, however you want.
+			</p>
+			<div class="flex w-full py-8 gap-4 max-md:flex-col">
+				<Card>
+					<CardHeader className="flex flex-row justify-between">
+						<CardTitle className="uppercase text-xl">Secure</CardTitle>
+						<i class="bi bi-shield-lock text-4xl"></i>
+					</CardHeader>
+					<CardContent>No data collection by default, no sign in means nothing for hackers to get if they manage to brake in.</CardContent>
+				</Card>
+				<Card className="flex w-full">
+					<CardHeader className="flex flex-row justify-between">
+						<CardTitle className="uppercase text-xl">Free</CardTitle>
+						<i class="bi bi-gift-fill text-4xl"></i>
+					</CardHeader>
+					<CardContent>No paid features, everything is free to use for any purpose you can think of, the sky is the limit.</CardContent>
+				</Card>
+				<Card className="flex w-full">
+					<CardHeader className="flex flex-row justify-between">
+						<CardTitle className="uppercase text-xl">No catches</CardTitle>
+						<i class="bi bi-asterisk text-4xl"></i>
+					</CardHeader>
+					<CardContent>Say goodbye to obscure and long privacy policies, with a short privacy policy, we gurantee you know how your data is treated.</CardContent>
+				</Card>
+			</div>
+		</section>
+	</Main>
+</Layout>

@@ -1,0 +1,12 @@
+{
+    "author": "Alan Turing",
+    "date": "2024-03-12",
+    "image": "/images/logic.jpg",
+    "categories": ["math", "logic"],
+    "title": "Logic and Reasoning",
+    "cards": [
+      ["What does 'if p then q' mean?", "If p is true, then q must also be true"],
+      ["What is a contradiction?", "A statement that is always false"]
+    ]
+}
+  

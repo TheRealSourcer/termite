@@ -1,0 +1,12 @@
+{
+    "author": "Ada Lovelace",
+    "date": "2024-06-10",
+    "image": "/images/programming.jpg",
+    "categories": ["computer science", "programming"],
+    "title": "Programming 101",
+    "cards": [
+      ["What is a variable?", "A storage location for data"],
+      ["What is a loop?", "A control structure that repeats code"]
+    ]
+}
+  
