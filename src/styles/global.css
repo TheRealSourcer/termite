@@ -123,4 +123,5 @@
 html {
   display: flex;
   min-width: 100vw;
+  box-sizing: border-box;
 }

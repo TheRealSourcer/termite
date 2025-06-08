@@ -1,24 +1,18 @@
 ---
-
 import Layout from "../../layouts/Layout.astro";
 import FlipCard from "../../components/FlipCard.tsx"
-import { getCollection, type CollectionEntry } from "astro:content";
-export async function getStaticPaths() {
-  console.log("getStaticPaths is running");
-  const studyGuides = await getCollection("studyGuidesCollection");
-  return studyGuides.map((guide) => ({
-    params: { id: guide.id },
-    props: { studyGuide: guide },
-  }));
+import { getEntry } from "astro:content";
+
+const { id } = Astro.params;
+console.log(id as string)
+const studyGuide = await getEntry(
+  "studyGuidesCollection", // your collection name
+  id as string          // entry ID or slug
+);
+
+if (!studyGuide) {
+  return Astro.redirect("/404");
 }
-
-
-type Props = {
-    studyGuide: CollectionEntry<"studyGuidesCollection">
-}
-
-const {studyGuide} = Astro.props;
-console.log(studyGuide);
 ---
 
 <Layout title="Termite">
