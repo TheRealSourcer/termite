@@ -1,34 +1,130 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import FlipCard from "../../components/FlipCard.tsx"
+import FlipCard from "../../components/FlipCard.tsx";
 import { getEntry } from "astro:content";
 
 const { id } = Astro.params;
-console.log(id as string)
-const studyGuide = await getEntry(
-  "studyGuidesCollection", // your collection name
-  id as string          // entry ID or slug
-);
+const studyGuide = await getEntry("studyGuidesCollection", id as string);
 
 if (!studyGuide) {
-  return Astro.redirect("/404");
+    return Astro.redirect("/404");
 }
+
+// Helper for formatting the date
+const formatDate = (date: Date) =>
+    new Date(date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    });
 ---
 
-<Layout title="Termite">
-    <main>
-        <h1>{studyGuide.data.title}</h1>
-        {studyGuide.data.cards.map((card) => (
-          <FlipCard front={card[0]} back={card[1]} client:visible></FlipCard>
-        ))}
-    </main>
+<Layout title={`Termite | ${studyGuide.data.title}`}>
+    <div class="min-h-screen bg-slate-50 relative overflow-hidden">
+        <!-- Background Decorations -->
+        <div
+            class="absolute top-0 left-0 w-full h-96 bg-rose-900 clip-path-divider opacity-90 z-0"
+        >
+        </div>
+        <div
+            class="absolute top-20 right-0 w-64 h-64 bg-rose-600 rounded-full mix-blend-overlay filter blur-3xl opacity-20 animate-blob"
+        >
+        </div>
+
+        <main class="relative z-10 max-w-5xl mx-auto px-4 pb-24">
+            <!-- 1. GUIDE HEADER SECTION -->
+            <div class="pt-16 pb-12 text-white text-center">
+                <div class="flex justify-center gap-2 mb-4">
+                    {
+                        studyGuide.data.categories?.map((cat) => (
+                            <span class="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-xs font-bold uppercase tracking-wider text-rose-100">
+                                {cat}
+                            </span>
+                        ))
+                    }
+                </div>
+                <h1
+                    class="text-5xl md:text-7xl font-[cursive] mb-6 drop-shadow-lg leading-tight"
+                >
+                    {studyGuide.data.title}
+                </h1>
+
+                <!-- Author Profile Card -->
+                <div
+                    class="inline-flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 p-2 pr-6 rounded-full hover:bg-white/20 transition-colors"
+                >
+                    <div
+                        class="w-12 h-12 rounded-full bg-rose-500 flex items-center justify-center text-white font-bold text-lg border-2 border-white/30"
+                    >
+                        {studyGuide.data.author.substring(0, 2).toUpperCase()}
+                    </div>
+                    <div class="text-left">
+                        <p
+                            class="text-xs text-rose-200 uppercase tracking-widest font-semibold"
+                        >
+                            Created by
+                        </p>
+                        <p class="text-white font-medium text-lg leading-none">
+                            {studyGuide.data.author}
+                        </p>
+                    </div>
+                    <div class="w-px h-8 bg-white/20 mx-2"></div>
+                    <div class="text-left">
+                        <p
+                            class="text-xs text-rose-200 uppercase tracking-widest font-semibold"
+                        >
+                            Updated
+                        </p>
+                        <p class="text-white font-medium text-lg leading-none">
+                            {formatDate(studyGuide.data.date)}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. CARDS CONTAINER -->
+            <div class="grid grid-cols-1 gap-12 relative">
+                <!-- Connecting Line Visual -->
+                <div
+                    class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 z-0"
+                >
+                </div>
+
+                {
+                    studyGuide.data.cards.map((card, index) => (
+                        <FlipCard
+                            front={card[0]}
+                            back={card[1]}
+                            client:visible
+                            index={index + 1}
+                            total={studyGuide.data.cards.length}
+                        />
+                    ))
+                }
+            </div>
+        </main>
+    </div>
 </Layout>
 
-<script>
-const flipped = false;
-const flipCard = document.getElementById("flipCard");
-
-flipCard?.addEventListener("click", () => {
-  flipped != flipped
-})
-</script>
+<style>
+    .clip-path-divider {
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    }
+    @keyframes blob {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+        }
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+        100% {
+            transform: translate(0px, 0px) scale(1);
+        }
+    }
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+</style>

@@ -3,21 +3,103 @@ import type { CollectionEntry } from "astro:content";
 import { Card, CardHeader, CardContent, CardTitle } from "./ui/card";
 
 type Props = {
-    guide: CollectionEntry<"studyGuidesCollection">
+    guide: CollectionEntry<"studyGuidesCollection">;
 };
 
 const { guide } = Astro.props;
+
+// Helper to generate initials for the author avatar
+const getInitials = (name: string) => {
+    return name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .substring(0, 2)
+        .toUpperCase();
+};
+
+// Helper to safely handle categories (assuming array, fallback to string)
+const categories = Array.isArray(guide.data.categories)
+    ? guide.data.categories
+    : [guide.data.categories];
 ---
 
-<div>
-    <a href=`/study-guides/${guide.id}`>
-        <Card>
-            <CardHeader className="flex flex-row justify-between">
-                <CardTitle className="uppercase text-xl">{guide.data.title}</CardTitle>
-            </CardHeader>
-            <CardContent>{guide.data.author}</CardContent>
-            <CardContent>{guide.data.categories}</CardContent>
-            <CardContent>{guide.data.date}</CardContent>
-        </Card>
-    </a>
-</div>
+<a href={`/study-guides/${guide.id}`} class="group block h-full w-full">
+    <Card
+        className="relative h-full border-slate-200 bg-white shadow-sm hover:shadow-xl hover:shadow-rose-200/50 transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col"
+    >
+        <!-- Top Accent Bar (Hover Effect) -->
+        <div
+            class="h-1.5 w-full bg-gradient-to-r from-rose-500 via-rose-400 to-slate-400 group-hover:w-full transition-all duration-500"
+        >
+        </div>
+
+        <CardHeader className="pb-4">
+            <div class="flex justify-between items-start gap-4">
+                <!-- Title -->
+                <div class="space-y-1">
+                    <CardTitle
+                        className="text-2xl font-[cursive] leading-tight text-slate-800 group-hover:text-rose-700 transition-colors line-clamp-2"
+                    >
+                        {guide.data.title}
+                    </CardTitle>
+                </div>
+
+                <!-- Arrow Icon (Reveals on Hover) -->
+                <div
+                    class="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 mt-1"
+                >
+                    <i
+                        class="bi bi-arrow-right-circle-fill text-3xl text-rose-500"
+                    ></i>
+                </div>
+            </div>
+        </CardHeader>
+
+        <CardContent className="flex flex-col gap-6 flex-1">
+            <!-- Author Profile Section -->
+            <div class="flex items-center gap-3">
+                <!-- Avatar Placeholder -->
+                <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 border-2 border-white shadow-sm flex items-center justify-center text-slate-600 font-bold text-sm group-hover:border-rose-200 transition-colors"
+                >
+                    {getInitials(guide.data.author)}
+                </div>
+                <div>
+                    <p
+                        class="text-xs text-slate-400 uppercase font-bold tracking-wider"
+                    >
+                        Creator
+                    </p>
+                    <p class="text-sm font-semibold text-slate-700">
+                        {guide.data.author}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Content Divider -->
+            <div class="w-full h-px bg-slate-100"></div>
+
+            <!-- Meta Data (Categories & Date) -->
+            <div class="space-y-3 mt-auto">
+                <!-- Categories -->
+                <div class="flex flex-wrap gap-2">
+                    {
+                        categories.map((cat: string) => (
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-rose-50 text-rose-700 border border-rose-100 group-hover:bg-rose-100 transition-colors">
+                                <i class="bi bi-tag mr-1.5 text-[10px]" />
+                                {cat}
+                            </span>
+                        ))
+                    }
+                </div>
+
+                <!-- Date -->
+                <div class="flex items-center gap-2 text-xs text-slate-400">
+                    <i class="bi bi-clock-history"></i>
+                    <span>Updated: {guide.data.date}</span>
+                </div>
+            </div>
+        </CardContent>
+    </Card>
+</a>

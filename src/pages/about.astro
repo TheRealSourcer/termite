@@ -1,10 +1,284 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
+import { getImage } from "astro:assets";
+import paperBg from "../assets/images/texture_paper.jpg";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+const paperBgOptimized = await getImage({ src: paperBg, format: "webp" });
 ---
 
+<Layout title="Termite - Our Story">
+    <Main>
+        <!-- HERO SECTION: Floating elements & reveal animations -->
+        <section
+            class="relative w-full min-h-[85vh] flex flex-col items-center justify-center bg-repeat bg-cover overflow-hidden"
+            style={`background-image: url('${paperBgOptimized.src}')`}
+        >
+            <!-- Decorative background blur blobs -->
+            <div
+                class="absolute top-20 left-10 w-64 h-64 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"
+            >
+            </div>
+            <div
+                class="absolute bottom-20 right-10 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"
+            >
+            </div>
 
-<Layout title="Termite">
-    <Main class="text-white">This is about termite</Main>
+            <div
+                class="relative z-10 text-center px-6 max-w-5xl mx-auto space-y-8"
+            >
+                <!-- Badge -->
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-rose-100 text-rose-800 text-sm font-bold tracking-wider uppercase animate-in fade-in zoom-in duration-700"
+                >
+                    The Philosophy
+                </span>
+
+                <!-- Main Heading with Gradient -->
+                <h1
+                    class="text-6xl md:text-8xl font-[cursive] text-black font-bold leading-tight animate-in slide-in-from-bottom-8 duration-1000 delay-100"
+                >
+                    We Are
+                    <span
+                        class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-rose-500 to-slate-600"
+                    >
+                        Unstudying
+                    </span>
+                    <br />
+                    The Norm.
+                </h1>
+
+                <!-- Subheading with decorative lines -->
+                <div
+                    class="flex items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300"
+                >
+                    <span class="h-px w-12 bg-black/40"></span>
+                    <p
+                        class="text-xl md:text-2xl text-slate-800 font-medium max-w-2xl leading-relaxed"
+                    >
+                        Termite isn't just an app; it's a quiet rebellion
+                        against the noise of modern educational technology.
+                    </p>
+                    <span class="h-px w-12 bg-black/40"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION SECTION: Dark aesthetic with contrast -->
+        <section class="relative bg-rose-950 py-24 px-6 overflow-hidden">
+            <!-- Abstract geometric pattern overlay -->
+            <div
+                class="absolute inset-0 opacity-10"
+                style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 24px 24px;"
+            >
+            </div>
+
+            <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
+                <h2
+                    class="text-4xl md:text-6xl font-[cursive] text-white animate-in fade-in duration-1000"
+                >
+                    Say <span class="text-rose-400 italic">No</span> to Freemium
+                </h2>
+
+                <p
+                    class="text-lg md:text-2xl text-rose-100/90 leading-relaxed font-light animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200"
+                >
+                    The current model of software exploitation—trading privacy
+                    for access, or money for sanity—is broken. We believe your
+                    study notes are yours.
+                    <span
+                        class="block mt-4 text-rose-400 font-semibold tracking-wide"
+                    >
+                        No algorithms. No ads. No credit cards.
+                    </span>
+                </p>
+
+                <div
+                    class="flex justify-center pt-8 animate-in zoom-in duration-1000 delay-500"
+                >
+                    <a
+                        href="/explore"
+                        class="group relative px-8 py-4 bg-white text-rose-950 font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-2xl"
+                    >
+                        <span class="relative z-10 flex items-center gap-2">
+                            Explore the Hive
+                            <i
+                                class="bi bi-arrow-right group-hover:translate-x-1 transition-transform"
+                            ></i>
+                        </span>
+                        <div
+                            class="absolute inset-0 bg-rose-100 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
+                        >
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUES SECTION: Interactive Cards & Paper Texture -->
+        <section
+            class="w-full py-24 px-6 md:px-12 bg-repeat bg-cover relative"
+            style={`background-image: url('${paperBgOptimized.src}')`}
+        >
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2
+                        class="text-5xl md:text-7xl font-[cursive] text-black mb-4"
+                    >
+                        The Pillars
+                    </h2>
+                    <p class="text-slate-600 text-lg">
+                        What makes Termite... Termite.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1: Open Source -->
+                    <Card
+                        className="group relative bg-white/80 backdrop-blur-sm border-none shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                    >
+                        <CardHeader>
+                            <div
+                                class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-rose-500 group-hover:text-white transition-colors duration-300"
+                            >
+                                <i class="bi bi-code-slash text-2xl"></i>
+                            </div>
+                            <CardTitle
+                                className="uppercase tracking-widest text-sm text-slate-500 font-bold mb-1"
+                                >01. Foundation</CardTitle
+                            >
+                            <h3 class="text-2xl font-[cursive] text-slate-800">
+                                Open Source
+                            </h3>
+                        </CardHeader>
+                        <CardContent>
+                            <p
+                                class="text-slate-600 leading-relaxed group-hover:text-slate-800 transition-colors"
+                            >
+                                We believe in radical transparency. Our code is
+                                available for anyone to audit, improve, and
+                                fork. Trust isn't given; it's earned by showing
+                                our work.
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    <!-- Card 2: Privacy -->
+                    <Card
+                        className="group relative bg-white/80 backdrop-blur-sm border-none shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                    >
+                        <CardHeader>
+                            <div
+                                class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500 group-hover:text-white transition-colors duration-300 delay-100"
+                            >
+                                <i class="bi bi-shield-lock text-2xl"></i>
+                            </div>
+                            <CardTitle
+                                className="uppercase tracking-widest text-sm text-slate-500 font-bold mb-1"
+                                >02. Promise</CardTitle
+                            >
+                            <h3 class="text-2xl font-[cursive] text-slate-800">
+                                Privacy First
+                            </h3>
+                        </CardHeader>
+                        <CardContent>
+                            <p
+                                class="text-slate-600 leading-relaxed group-hover:text-slate-800 transition-colors"
+                            >
+                                We are not a data company. We don't track your
+                                keystrokes, sell your study habits, or profile
+                                you. Your notes are encrypted and private by
+                                default.
+                            </p>
+                        </CardContent>
+                    </Card>
+
+                    <!-- Card 3: Freedom -->
+                    <Card
+                        className="group relative bg-white/80 backdrop-blur-sm border-none shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                    >
+                        <CardHeader>
+                            <div
+                                class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300 delay-200"
+                            >
+                                <i class="bi bi-infinity text-2xl"></i>
+                            </div>
+                            <CardTitle
+                                className="uppercase tracking-widest text-sm text-slate-500 font-bold mb-1"
+                                >03. Goal</CardTitle
+                            >
+                            <h3 class="text-2xl font-[cursive] text-slate-800">
+                                Absolute Freedom
+                            </h3>
+                        </CardHeader>
+                        <CardContent>
+                            <p
+                                class="text-slate-600 leading-relaxed group-hover:text-slate-800 transition-colors"
+                            >
+                                Use Termite however you want. Personal study,
+                                classroom management, or collaborative chaos.
+                                There are no premium locks, just open doors.
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGNATURE / FOOTER AREA -->
+        <section class="bg-white py-12 border-t border-slate-200">
+            <div class="max-w-4xl mx-auto text-center px-6">
+                <i
+                    class="bi bi-bug text-5xl text-rose-600 mb-6 inline-block animate-pulse"
+                ></i>
+                <h2 class="text-3xl font-[cursive] text-slate-800 mb-4">
+                    Join the Hive
+                </h2>
+                <p class="text-slate-500 mb-8">
+                    Ready to take back control of your education?
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a
+                        href="/explore"
+                        class="bg-slate-900 text-white px-8 py-3 rounded-lg font-bold hover:bg-rose-600 transition-colors duration-300 shadow-lg"
+                    >
+                        Get Started Free
+                    </a>
+                    <a
+                        target="_blank"
+                        href="https://github.com/TheRealSourcer/termite"
+                        class="border border-slate-300 text-slate-700 px-8 py-3 rounded-lg font-bold hover:border-slate-900 hover:text-slate-900 transition-colors duration-300 flex items-center justify-center gap-2"
+                    >
+                        <i class="bi bi-github"></i> View Source
+                    </a>
+                </div>
+            </div>
+        </section>
+    </Main>
 </Layout>
+
+<style>
+    /* Custom Blob Animation */
+    @keyframes blob {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+        }
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+        100% {
+            transform: translate(0px, 0px) scale(1);
+        }
+    }
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+</style>

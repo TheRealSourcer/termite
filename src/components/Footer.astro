@@ -1,59 +1,43 @@
 ---
 import { Image } from "astro:assets";
-import logo from "../assets/images/termite_logo.png"
+import logo from "../assets/images/termite_logo.png";
 ---
 
-<footer class="flex px-24 py-18 border-t-1 border-slate-600 gap-40 justify-between">
-    <div>
-        <a href="/" class="flex items-baseline min-w-fit mb-2">
-            <Image src={logo} class="object-cover pr-2" alt="" width={40} height={40}>
-            <p class="font-bold text-5xl font-[cursive] leading-tight">Termite</p>
-        </a>
-        <ul class="flex gap-6.5">
-            <a href="">
-                <li class="">
-                    <i class="bi bi-facebook text-2xl"></i>           
-                </li>
+<footer
+    class="flex flex-col gap-y-18 pt-18 pb-9 border-t-1 border-slate-600 w-[100vw] px-5 sm:px-24 2xl:px-96"
+>
+    <div
+        class="flex justify-between max-md:flex-col max-md:justify-start max-md:items-center"
+    >
+        <div class="flex w-full flex-col max-md:items-center">
+            <a href="/" class="flex items-baseline min-w-fit mb-2">
+                <Image
+                    src={logo}
+                    class="object-cover pr-2"
+                    alt=""
+                    width={40}
+                    height={40}
+                />
+                <p class="font-bold text-5xl font-[cursive] leading-tight">
+                    Termite
+                </p>
             </a>
-            <a href="">
-                <li class="">
-                    <i class="bi bi-twitter-x text-2xl"></i>
-                </li>
-            </a>
-            <a href="">
-                <li class="">
-                    <i class="bi bi-instagram text-2xl"></i>                
-                </li>
-            </a>
-            <a href="">
-                <li class="">
-                    <i class="bi bi-tiktok text-2xl"></i>
-                </li>
-            </a>
-            <a href="">
-                <li class="">
-                    <i class="bi bi-youtube text-2xl"></i>
-                </li>
-            </a>
-        </ul>
+        </div>
+        <div
+            class="grid gap-x-6 gap-y-8 grid-cols-1 text-nowrap md:grid-cols-2 min-w-fit text-center md:text-left lg:gap-x-12 xl:gap-x-24"
+        >
+            <ul class="flex gap-2 font-semibold flex-col md:gap-4">
+                <li><a href="/" class="">Home</a></li>
+                <li><a href="/explore" class="">Explore</a></li>
+                <li><a href="/about" class="">About</a></li>
+            </ul>
+            <ul class="flex gap-4 font-semibold flex-col">
+                <li><a href="/explore" class="">Flashcard Sets</a></li>
+                <li><a href="/about" class="">Why Termite</a></li>
+            </ul>
+        </div>
     </div>
-    <div class="grid grid-cols-3 gap-24 text-nowrap ">
-        <ul class="flex gap-4 font-semibold flex-col">
-            <li><a href="/" class="">Home</a></li>
-            <li><a href="/explore" class="">Explore</a></li>
-            <li><a href="/about" class="">About</a></li>
-            <li><a href="/contact" class="">Contact</a></li>
-        </ul>
-        <ul class="flex gap-4 font-semibold flex-col">
-            <li><a href="/" class="">Create</a></li>
-            <li><a href="/explore" class="">Fun Facts</a></li>
-            <li><a href="/about" class="">Games</a></li>
-            <li><a href="/contact" class="">WebDev</a></li>
-        </ul> 
-        <ul class="flex gap-4 font-semibold flex-col">
-            <li><a href="/" class="">Terms of Use</a></li>
-            <li><a href="/explore" class="">Privacy Policy</a></li>
-            <li><a href="/about" class="">Cookies</a></li>
-        </ul> 
-    </div>
+    <span class="text-sm italic text-center">
+        Copyright © {new Date().getFullYear()} Termite. All Rights Reserved.
+    </span>
 </footer>

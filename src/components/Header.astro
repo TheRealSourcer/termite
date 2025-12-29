@@ -1,26 +1,212 @@
 ---
 import { Image } from "astro:assets";
-import logo from "../assets/images/termite_logo.png"
+import { getCollection } from "astro:content";
+import logo from "../assets/images/termite_logo.png";
+
+// Fetch data globally so the search works on ANY page
+const allStudyGuides = await getCollection("studyGuidesCollection");
+const searchIndex = allStudyGuides.map((g) => ({
+    id: g.id,
+    title: g.data.title,
+}));
 ---
 
-<header class="flex justify-between items-baseline px-8 py-2 max-sm:px-5 bg-white w-full mx-auto flex-wrap z-10 sticky top-0">
-    <a href="/" class="flex items-baseline min-w-fit">
-        <Image src={logo} class="object-cover pr-2" alt="" width={40} height={40}>
-        <p class="font-bold text-5xl font-[cursive] leading-tight">Termite</p>
+<header
+    class="relative flex justify-between items-baseline px-5 py-3 bg-white/90 backdrop-blur-md w-[100vw] z-50 sticky top-0 flex-wrap md:px-8 shadow-sm border-b border-slate-100"
+>
+    <a href="/" class="flex items-baseline order-1">
+        <Image
+            src={logo}
+            class="object-cover pr-2"
+            alt="Termite Logo"
+            width={40}
+            height={40}
+        />
     </a>
-    
-    <div class="flex bg-red-200 rounded-lg px-3 py-1 focus:outline-2 focus:outline-amber-700 has-[:focus]:bg-white has-[:focus]:outline-red-400 outline-2 outline-red-200 w-2/4 mx-8 order-1 max-sm:order-3 max-sm:w-full max-sm:mx-0">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#055" class="size-7 pr-2 text-amber-800">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+
+    <!-- Hamburger Button (mobile only) -->
+    <button
+        id="menu-toggle"
+        class="sm:hidden order-1 p-2 text-slate-700 focus:outline-none"
+        aria-label="Toggle menu"
+    >
+        <svg
+            id="hamburger-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
         </svg>
-          
-        <input type="text" class="w-full focus:outline-0" placeholder="Search for study guides">
+        <svg
+            id="close-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2.5"
+            stroke="currentColor"
+            class="w-6 h-6 hidden"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
+    <!-- Search Container -->
+    <div
+        class="relative w-2/4 mx-8 order-1 max-sm:order-3 max-sm:w-full max-sm:mx-0 max-sm:mt-2"
+    >
+        <div
+            class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 focus-within:ring-2 focus-within:ring-rose-500 focus-within:bg-white transition-all duration-300 shadow-sm hover:shadow-md"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+                class="size-6 pr-2 text-slate-400"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                ></path>
+            </svg>
+            <input
+                id="search-input"
+                type="text"
+                class="w-full bg-transparent text-slate-700 placeholder-slate-400 focus:outline-none"
+                placeholder="Search for study guides..."
+            />
+        </div>
+
+        <!-- Autocomplete Dropdown (Hidden by default) -->
+        <ul
+            id="search-results"
+            class="hidden absolute top-full left-0 w-full mt-2 bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden z-50 max-h-80 overflow-y-auto"
+        >
+            <!-- Results injected via JS -->
+        </ul>
     </div>
 
-    <ul class="flex gap-4 font-semibold order-2">
-        <li><a href="/" class="text-teal-900">Home</a></li>
-        <li><a href="/explore" class="text-teal-900">Explore</a></li>
-        <li><a href="/about" class="text-teal-900">About</a></li>
-        <li><a href="/contact" class="text-teal-900">Contact</a></li>
-    </ul>
+    <!-- Navigation Menu -->
+    <nav
+        id="mobile-menu"
+        class="order-1 max-sm:order-4 max-sm:w-full max-sm:hidden max-sm:mt-2"
+    >
+        <ul
+            class="flex gap-6 font-semibold text-slate-600 max-sm:flex-col max-sm:gap-2 max-sm:text-right"
+        >
+            <li>
+                <a
+                    href="/"
+                    class="hover:text-rose-600 transition-colors max-sm:block max-sm:py-2"
+                    >Home</a
+                >
+            </li>
+            <li>
+                <a
+                    href="/explore"
+                    class="hover:text-rose-600 transition-colors max-sm:block max-sm:py-2"
+                    >Explore</a
+                >
+            </li>
+            <li>
+                <a
+                    href="/about"
+                    class="hover:text-rose-600 transition-colors max-sm:block max-sm:py-2"
+                    >About</a
+                >
+            </li>
+        </ul>
+    </nav>
 </header>
+
+<!-- 1. Inject data globally using define:vars -->
+<script define:vars={{ allGuides: searchIndex }}>
+    window.__ALL_GUIDES__ = allGuides;
+</script>
+
+<script>
+    // Mobile Menu Logic
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const hamburgerIcon = document.getElementById("hamburger-icon");
+    const closeIcon = document.getElementById("close-icon");
+
+    menuToggle?.addEventListener("click", () => {
+        mobileMenu?.classList.toggle("max-sm:hidden");
+        hamburgerIcon?.classList.toggle("hidden");
+        closeIcon?.classList.toggle("hidden");
+    });
+
+    // Search Autocomplete Logic
+    const searchInput = document.getElementById(
+        "search-input",
+    ) as HTMLInputElement;
+    const searchResults = document.getElementById("search-results");
+
+    searchInput?.addEventListener("input", (e) => {
+        const query = (e.target as HTMLInputElement).value.toLowerCase();
+
+        // Clear previous results
+        if (searchResults) {
+            searchResults.innerHTML = "";
+        }
+
+        if (query.length < 1) {
+            searchResults?.classList.add("hidden");
+            return;
+        }
+
+        // Read from global variable defined above
+        const allGuides = window.__ALL_GUIDES__;
+        if (!allGuides) return;
+
+        const matches = allGuides.filter((g: any) =>
+            g.title.toLowerCase().includes(query),
+        );
+
+        if (matches.length > 0) {
+            searchResults?.classList.remove("hidden");
+            matches.forEach((guide: any) => {
+                const li = document.createElement("li");
+                li.className =
+                    "px-4 py-3 hover:bg-rose-50 cursor-pointer border-b border-slate-50 last:border-0 flex justify-between items-center transition-colors";
+                li.innerHTML = `
+                    <span class="text-slate-700 font-medium">${guide.title}</span>
+                    <span class="text-xs text-rose-500 font-bold uppercase">Open</span>
+                `;
+                li.addEventListener("click", () => {
+                    window.location.href = `/explore?search=${encodeURIComponent(guide.title)}`;
+                });
+                searchResults?.appendChild(li);
+            });
+        } else {
+            const li = document.createElement("li");
+            li.className = "px-4 py-3 text-slate-400 text-center";
+            li.innerText = "No guides found";
+            searchResults?.appendChild(li);
+            searchResults?.classList.remove("hidden");
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+        if (
+            !searchInput?.contains(e.target) &&
+            !searchResults?.contains(e.target)
+        ) {
+            searchResults?.classList.add("hidden");
+        }
+    });
+</script>

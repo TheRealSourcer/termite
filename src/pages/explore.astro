@@ -3,30 +3,126 @@ import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
 import { getCollection } from "astro:content";
 import GuidesList from "@/components/GuidesList.astro";
-import { Image } from "astro:assets";
 
-const studyGuides = await getCollection("studyGuidesCollection");
-console.log(studyGuides);
+// 1. Get all guides
+const allStudyGuides = await getCollection("studyGuidesCollection");
+
+// 2. Get search query from URL parameters (e.g. /explore?search=Biology)
+const searchQuery = Astro.url.searchParams.get("search")?.toLowerCase() || "";
+
+// 3. Filter guides based on the search query
+const studyGuides = searchQuery
+    ? allStudyGuides.filter((guide) =>
+          guide.data.title.toLowerCase().includes(searchQuery),
+      )
+    : allStudyGuides;
 ---
 
-<Layout title="Termite">
-  <Main class="bg-amber-50">
-	<section class="flex justify-center flex-col bg-[url('images/texture_paper.jpg')] bg-repeat bg-cover w-full pt-24 pb-12 px-96 max-sm:px-5 max-2xl:px-24">
-		<div>
-			<h1 class="font-extrabold text-7xl leading-20">Explore</h1>
-			<p class="text-4xl text-slate-600 lh-">We have an awesome community ready to meet your varying studying needs.</p>
-			<div class="pt-8">
-				<a href="/explore" class="bg-white px-8 py-4 text-black rounded-lg font-bold hover:scale-105 hover:shadow-lg active:scale-90 active:shadow-none shadow-slate-600 duration-300">Create</a>
-				<a href="/about" class="bg-transparent px-8 py-4 text-black rounded-lg font-bold border-2 border-black">Learn More</a>	
-			</div>
-		</div>
+<Layout title="Termite - Explore">
+    <Main class="bg-slate-50 min-h-screen">
+        <section
+            class="flex justify-center items-center flex-col bg-repeat bg-cover w-full pt-32 pb-16 px-6 md:px-24 relative"
+            style="background-image: url('images/texture_paper.jpg')"
+        >
+            <!-- Background Glow -->
+            <div
+                class="absolute top-10 right-20 w-72 h-72 bg-rose-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"
+            >
+            </div>
 
-		<div>
+            <div class="relative z-10 text-center max-w-4xl">
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-rose-100 text-rose-800 text-xs font-bold tracking-widest uppercase mb-4"
+                >
+                    Discover
+                </span>
+                <h1
+                    class="font-extrabold text-6xl md:text-8xl mb-6 leading-tight text-slate-900 font-[cursive]"
+                >
+                    Explore <br />
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-rose-400"
+                        >Knowledge.</span
+                    >
+                </h1>
+                <p
+                    class="text-xl md:text-2xl text-slate-600 leading-relaxed mb-8 max-w-2xl"
+                >
+                    We have an awesome community ready to meet your varying
+                    studying needs.
+                </p>
 
-		</div>
-	</section>
-	<section class="flex justify-center flex-col bg-[url('images/texture_paper.jpg')] bg-repeat bg-cover w-full pt-24 pb-12 px-96 max-sm:px-5 max-2xl:px-24">
-		<GuidesList guides={studyGuides}/>
-	</section>
-  </Main>
+                {
+                    searchQuery && (
+                        <div class="mb-8 p-4 bg-white/80 backdrop-blur rounded-lg border border-rose-100 inline-flex flex-wrap items-center gap-3 shadow-sm animate-in slide-in-from-bottom-2 duration-500">
+                            <span class="text-rose-500 font-bold flex items-center gap-2">
+                                <i class="bi bi-funnel" />
+                                Showing results for "{searchQuery}"
+                            </span>
+                            <a
+                                href="/explore"
+                                class="text-sm text-slate-500 underline hover:text-rose-600 flex items-center gap-1"
+                            >
+                                Clear <i class="bi bi-x-circle" />
+                            </a>
+                        </div>
+                    )
+                }
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+            <div
+                class="flex justify-between items-end mb-8 border-b border-slate-200 pb-4"
+            >
+                <h2 class="text-2xl font-bold text-slate-800">
+                    Available Guides
+                </h2>
+                <span class="text-slate-500 text-sm font-medium">
+                    {studyGuides.length}
+                    {studyGuides.length === 1 ? "set" : "sets"} found
+                </span>
+            </div>
+
+            <!-- Render the list (Passing the filtered guides) -->
+            {
+                studyGuides.length > 0 ? (
+                    <GuidesList guides={studyGuides} />
+                ) : (
+                    <div class="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
+                        <i class="bi bi-search text-4xl text-slate-300 mb-4" />
+                        <p class="text-slate-500 text-lg">
+                            No study guides match your search.
+                        </p>
+                        <a
+                            href="/explore"
+                            class="mt-4 inline-block text-rose-600 font-bold hover:underline"
+                        >
+                            Browse all guides
+                        </a>
+                    </div>
+                )
+            }
+        </section>
+    </Main>
 </Layout>
+
+<style>
+    @keyframes blob {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+        }
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+        100% {
+            transform: translate(0px, 0px) scale(1);
+        }
+    }
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+</style>
